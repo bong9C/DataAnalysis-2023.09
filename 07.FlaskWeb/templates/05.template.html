@@ -25,5 +25,6 @@
     {% for i in range(3) %}
         <h4>{{i}}</h4>
     {% endfor %}
+    <h3>{{item | default('item 값이 지정되지 않았을 때 사용되는 값')}}</h3>   
 </body> 
 </html>
