@@ -7,9 +7,9 @@ app = Flask(__name__)
 def index():
     return '''
         <h1>크롤링</h1>
-        <button onclick="location.href='/calc'">인터파크 베스트 셀러</button>
-        <button onclick="location.href='/lang'">멜론 실시간 차트 TOP50</button>
-        <button onclick="location.href='/siksln'">영등포역 맛집</button>
+        <button onclick="location.href='/interpark'">인터파크 베스트 셀러</button>
+        <button onclick="location.href='/melon'">멜론 실시간 차트 TOP50</button>
+        <button onclick="location.href='/siksin'">영등포역 맛집</button>
     '''
 @app.route('/interpark')
 def interpark():
