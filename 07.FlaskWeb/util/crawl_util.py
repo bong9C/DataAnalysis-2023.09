@@ -50,9 +50,9 @@ def get_melon_chart():
     
     return data
 
-def get_restaurant_list(data):
+def get_restaurant_list(place):     # place로 적어도 됨. 
     base_url = 'https://www.siksinhot.com/search'
-    url = f'{base_url}?keywords={quote(f"{data}")}'
+    url = f'{base_url}?keywords={quote(f"{place}")}'
     res = requests.get(url)
     soup = BeautifulSoup(res.text, 'html.parser')
     lis = soup.select('.localFood_list > li')

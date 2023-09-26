@@ -9,7 +9,7 @@
     </style>
 </head>
 <body style="margin: 40px;">
-    <h3>영등포역 맛집</h3><button onclick="location.href='/'">돌아가기</button>
+    <h3>{{place}}맛집</h3><button onclick="location.href='/'">돌아가기</button>
     <button onclick="location.href='/interpark'">인터파크 베스트 셀러</button>
     <button onclick="location.href='/melon'">멜론 실시간 차트 TOP50</button>
     <hr>
@@ -24,8 +24,8 @@
         </tr>
         {% for rest in rest_list %}
             <tr>
-                <td><img src="{{rest.이미지}}" height="32"></td>
                 <td><a href="{{rest.href}}" target="_blank">{{rest.업소명}}</a></td>
+                <td><img src="{{rest.이미지}}" height="32"></td>
                 <td>{{rest.평점}}</td>
                 <td>{{rest.메뉴}}</td>
                 <td>{{rest.주소}}</td>
