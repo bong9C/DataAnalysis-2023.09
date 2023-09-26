@@ -12,15 +12,15 @@ def index():
     '''
 
 
-@app.route('/station', method=['GET','POST'])
+@app.route('/station', methods=['GET','POST'])
 def station():
     if request.method == 'GET':
         return render_template('08.station_form.html')
     else:
-        station_map = mu.get_station_map('station')
-        station_map = mu.get_station_map(station)
-        # return render_template('08.station_form.html')
-        return f'<h3>{station}<h3>'
+        stations = request.form.getlist('station')
+        stations = [station for station in stations if len(station.strip()) != 0]    # 5개미만으로 작성하여도 잘 돌아감
+        mu.get_station_map(app.root_path, stations)       # static/img/station_map.html 파일 
+        return render_template('08.station_res.html')
     
 if __name__ == '__main__':
     app.run(debug=True)

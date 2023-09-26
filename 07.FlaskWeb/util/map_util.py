@@ -3,8 +3,9 @@ import pandas as pd
 from urllib.parse import quote 
 
 def get_station_map(root_path, stations):
+    # 도로명 주소 구하기
+    # filename='../04.지도시각화/keys/도로명주소apikey.txt'
     filename = os.path.join(root_path, 'static/keys/도로명주소apikey.txt')
- # filename='../04.지도시각화/keys/도로명주소apikey.txt'
     with open(filename) as file:
         road_key = file.read()
 
@@ -27,7 +28,7 @@ def get_station_map(root_path, stations):
 
     # 위도, 경도 좌표 구하기 ( 카카오 로컬 참고 )
     filename = os.path.join(root_path, 'static/keys/카카오apikey.txt')
-    with open('keys/카카오apikey.txt') as file:
+    with open(filename) as file:
                 kakao_key = file.read()
     base_url = 'https://dapi.kakao.com/v2/local/search/address.json'
     header = {'Authorization': f'KakaoAK {kakao_key}'}
