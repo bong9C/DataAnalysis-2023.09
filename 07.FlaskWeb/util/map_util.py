@@ -1,6 +1,7 @@
 import requests, json, os, folium      # requests 인터넷으로 자료를 받아서 가지고 올 때 사용 
 import pandas as pd
 from urllib.parse import quote 
+import numpy as np
 
 def get_station_map(root_path, stations):
     # 도로명 주소 구하기
@@ -54,4 +55,56 @@ def get_station_map(root_path, stations):
     filename = os.path.join(root_path, 'static/img/station_map.html')
     map.save(filename)
 
-    
+def get_text_location(geo_str):
+    gu_dict = {}
+    for gu in geo_str['features']:
+        for coord in gu['geometry']['coordinates']:
+            geo = np.array(coord)
+            gu_dict[gu['id']] = [np.mean(geo[:,1]), np.mean(geo[:,0])]
+    return gu_dict
+
+
+#  CCTV 단계구분도
+def get_cctv(static_path, column):
+    filename = f'{static_path}/data/서울시 구별 CCTV 인구 현황.csv'
+    df = pd.read_csv(filename, index_col='구별')
+    geo_data = json.load(open(f'{static_path}/data/seoul_geo_simple.json', encoding='utf-8'))
+
+    map = folium.Map([37.55, 126.98], zoom_start=11, tiles='Stamen Toner')
+    folium.Choropleth(
+        geo_data=geo_data,      # GEO 지도 데이터
+        data=df.CCTV댓수,       # 단계구분도로 보여줄 데이터
+        columns=[df.index, df.CCTV댓수],        # 데이터프레임에서 추출할 항목
+        fill_color='RdPu',      # Colormap
+        key_on='feature.id'     # 지도에서 조인할 항목
+    ).add_to(map)
+    gu_dict = get_text_location(geo_data)
+    for gu_name in df.index:
+        folium.map.Marker(
+            location=gu_dict[gu_name],
+            icon = folium.DivIcon(icon_size=(80,20), icon_anchor=(20,0),
+                        html=f'<span style="font-size: 10pt">{gu_name}</span>')
+    ).add_to(map)
+    map.save(f'{static_path}/img/cctv.html')
+
+def get_cctv_pop(static_path, column, colormap):
+    filename = f'{static_path}/data/서울시 구별 CCTV 인구 현황.csv'
+    df = pd.read_csv(filename, index_col='구별')
+    geo_data = json.load(open(f'{static_path}/data/seoul_geo_simple.json', encoding='utf-8'))
+
+    map = folium.Map([37.55, 126.98], zoom_start=11, tiles='Stamen Toner')
+    folium.Choropleth(
+        geo_data=geo_data,      # GEO 지도 데이터
+        data=df[column],        # 단계구분도로 보여줄 데이터
+        columns=[df.index, df[column]],     # 데이터프레임에서 추출할 항목
+        fill_color=colormap,    # Colormap
+        key_on='feature.id'     # 지도에서 조인할 항목
+    ).add_to(map)
+    gu_dict = get_text_location(geo_data)
+    for gu_name in df.index:
+        folium.map.Marker(
+            location=gu_dict[gu_name],
+            icon = folium.DivIcon(icon_size=(80,20), icon_anchor=(20,0),
+                        html=f'<span style="font-size: 10pt">{gu_name}</span>')
+    ).add_to(map)
+    map.save(f'{static_path}/img/cctv_pop.html')
