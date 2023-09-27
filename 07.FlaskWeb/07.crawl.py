@@ -24,8 +24,8 @@ def melon():
 
 @app.route('/siksin')
 def siksin():
-    place_list = cu.get_restaurant_list('영등포역')
-    return render_template('07.siksin.html', place_list=place_list)
+    rest_list = cu.get_restaurant_list('영등포역')
+    return render_template('07.siksin.html', rest_list=rest_list)
 
 if __name__ == '__main__':
     app.run(debug=True)

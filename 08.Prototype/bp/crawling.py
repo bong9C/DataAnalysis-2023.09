@@ -19,5 +19,5 @@ def interpark():
 
 @crawl_bp.route('/siksin')
 def siksin():
-    rest_list = cu.get_restaurant_list()
+    rest_list = cu.get_restaurant_list('영등포역')
     return render_template('crawling/siksin.html', rest_list=rest_list, menu=menu)
