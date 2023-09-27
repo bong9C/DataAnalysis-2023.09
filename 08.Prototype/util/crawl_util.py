@@ -59,6 +59,8 @@ def get_restaurant_list(place):
     data = []
     for li in lis:
         atag = li.select_one('figcaption > a')
+        href = li.select_one('a')['href']
+        src = li.select_one('figure > a > img')['src'] 
         name = atag.select_one('h2').get_text().strip()
         score = atag.select_one('.score').get_text().strip()
         menu = li.select('.cate > a')[-1].get_text().strip()
@@ -68,6 +70,6 @@ def get_restaurant_list(place):
         info = sub_soup.select('.pc_only > td')
         addr = info[0].select_one('div').get_text().split('지번')[0].strip()
         tel = info[1].select_one('div').get_text().strip()
-        data.append({'업소명':name, '평점':score, '메뉴':menu, '주소':addr, '전화번호':tel})
+        data.append({'업소명':name, '이미지':img, '평점':score, '메뉴':menu, '주소':addr, '전화번호':tel})
     
     return data

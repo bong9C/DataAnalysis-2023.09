@@ -1,3 +1,4 @@
+# 컨트롤러
 from flask import Blueprint, render_template, current_app
 import util.crawl_util as cu
 
@@ -15,3 +16,8 @@ def melon():
 def interpark():
     book_list = cu.get_bestseller()
     return render_template('crawling/interpark.html', book_list=book_list, menu=menu)
+
+@crawl_bp.route('/siksin')
+def siksin():
+    rest_list = cu.get_restaurant_list()
+    return render_template('crawling/siksin.html', rest_list=rest_list, menu=menu)
