@@ -1,6 +1,8 @@
 # Ck add
 keys/
 upload/
+*.db
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
