@@ -7,9 +7,9 @@ import db_sqlite.anniversary_dao as adao
 import db_sqlite.schedule_dao as sdao
 
 schdedule_bp = Blueprint('schdedule_bp', __name__)
-menu = {'ho':0, 'us':0, 'cr':0, 'cb':0, 'sc':1}
+menu = {'ho':0, 'us':0, 'cr':0, 'ma':0, 'sc':1}
 
-@schdedule_bp.route('/calendar/<arrow>')  # 달력에 기념일과 공휴일, 내 일정 표시해줌
+@schdedule_bp.route('/calendar/<arrow>')
 def calendar_func(arrow):
     today = date.today()
     date_name = '월 화 수 목 금 토 일'.split()[today.weekday()]

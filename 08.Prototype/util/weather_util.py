@@ -4,7 +4,7 @@ def get_weather(static_path, lat, lng):
     filename = f'{static_path}/keys/OpenWeatherApiKey.txt'
     with open(filename) as file:
         weather_key = file.read()
-    base_url = 'https://api.openweathermap.org/data/2.5/onecall'
+    base_url = 'https://api.openweathermap.org/data/2.8/onecall'
     options = 'units=metric&lang=kr&exclude=minutely,hourly,daily,alerts'
     url = f'{base_url}?lat={lat}&lon={lng}&appid={weather_key}&{options}'
     result = requests.get(url).json()
