@@ -107,13 +107,14 @@ def yolo():
     if request.method == 'GET':
         return render_template('chatbot/yolo.html', menu=menu)
     else:
-        colordict = {'red':(255,0,0), 'green':(0,255,0), 'blue':(0,0,255)}
-        color = colordict[request.form['color']]
+        color = request.form['color']
         linewidth = int(request.form['linewidth'])
         fontsize = int(request.form['fontsize'])
         file_image = request.files['image']     # yolo_form.html 에서 name="image" 이므로
         img_file = os.path.join(current_app.static_folder, f'upload/{file_image.filename}')
         file_image.save(img_file)
+
+        mtime = cu.proc_yolo(current_app.static_folder,  img_file, fontsize)
         img_type = img_file.split('.')[-1]
         if img_type == 'jfif':
             img_type = 'jpg'
