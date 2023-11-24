@@ -1,9 +1,9 @@
 import requests, json, os, io, base64
 from PIL import ImageFont, ImageDraw, Image
-"""from google.cloud import vision"""
+from google.cloud import vision
 import matplotlib.pyplot as plt
 
-"""def get_legal_answer(static_folder, question):
+def get_legal_answer(static_folder, question):
     openApiURL = "http://aiopen.etri.re.kr:8000/LegalQA"
     filename = os.path.join(static_folder, 'keys/etriAiKey.txt')
     with open(filename) as f:
@@ -54,7 +54,7 @@ def proc_ocr(static_folder, filename, color, showText, size):
     mtime = os.stat(savefile).st_mtime
 
     return texts[0].description, int(mtime)
-"""
+
 def proc_yolo(static_folder, img_file, color, linewidth, fontsize):
     colordict = {'red':(255,0,0), 'green':(0,255,0), 'blue':(0,0,255)}
     color = colordict[color]
